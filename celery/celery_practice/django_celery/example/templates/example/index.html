@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    </head>
+    <body>
+      <script>
+        function sendTask(taskType){
+            input_x=document.getElementById("x_num").value;
+            input_y=document.getElementById("y_num").value;
+            if(taskType=='EML'){
+                input_x=document.getElementById("from").value;
+                input_y=document.getElementById("to").value;
+            }
+            document.getElementById('result_'+taskType).innerHTML='Result Pending'
+
+            $.ajax({
+            url: {% url 'task' %},
+            data: {
+            'task_type':taskType,
+            'input_x': input_x,
+            'input_y':input_y
+            },
+            dataType: 'json',
+            success: function (data) {
+                console.log(data)
+                document.getElementById('result_'+taskType).innerHTML=data['task_result'];
+            }
+        });
+      }  
+    </script>
+       <h1>Celery Task Performer</h1>
+       <div>
+            <h3>Calculation of two numbers</h3>
+                <label for="x_num">Number 1</label><br>
+                <input type='text' id='x_num' name='x_num'><br>
+                <label for="y_num">Number 2</label><br>
+                <input type='text' id='y_num' name='y_num'>
+                <h4>Addition</h4>
+                    <button onClick='sendTask("ADD")'>ADD</button><br>
+                    <span>Result is:</span><span id='result_ADD'></span>
+                <h4>Multiplication</h4>
+                    <button onClick='sendTask("MUL")'>MUL</button><br>
+                    <span>Result is:</span><span id='result_MUL'></span>
+                <br>
+        </div>
+        <hr>
+        <div>
+                <h3>Email Sender</h3>
+                <label for="from">From:</label><br>
+                <input type='text' id='from' name='from'><br>
+                <label for="y_num">To:</label><br>
+                <input type='text' id='to' name='to'>
+                    <button onClick='sendTask("EML")'>SEND</button><br>
+                    <span>Result is:</span><span id='result_EML'></span>
+        </div>
+    </body>
+</html>
