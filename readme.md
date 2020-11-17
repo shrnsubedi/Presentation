@@ -9,4 +9,4 @@ The examples provied vary in their use of platforms and virtual environments. So
 Some of the images used in the slides might not have been cited properly. However, the articles that were referenced to construct the slides are mentioned at the end of the slides. 
 
 ## Regarding the slides
-The slides here are for eductational purposes.
+The slides here are for eductational purposes. These are mostly compiled with information from multiple sources and "some" input from me. Information and examples here may be incorrect or require changes, so please do mention if such errors are found.
